@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a16c3c541bd99241cab1c21ce8e83ac",
+    "content-hash": "cdd5411575715fff2ef842f6b8a77210",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4650,6 +4650,58 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "visualappeal/laravel-rbac",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thelfensdrfer/laravel-rbac.git",
+                "reference": "e8c81562b578f250f4431729ebecda79483b4564"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thelfensdrfer/laravel-rbac/zipball/e8c81562b578f250f4431729ebecda79483b4564",
+                "reference": "e8c81562b578f250f4431729ebecda79483b4564",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.4",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPZen\\LaravelRbac\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHPZen",
+                    "email": "phpzen.code@gmail.com",
+                    "homepage": "https://github.com/phpzen",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Role based access control for Laravel 5",
+            "keywords": [
+                "acl",
+                "auth",
+                "laravel",
+                "permissions",
+                "rbac",
+                "roles",
+                "security"
+            ],
+            "support": {
+                "issues": "https://github.com/thelfensdrfer/laravel-rbac/issues",
+                "source": "https://github.com/thelfensdrfer/laravel-rbac/tree/master"
+            },
+            "time": "2018-01-24T22:41:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
