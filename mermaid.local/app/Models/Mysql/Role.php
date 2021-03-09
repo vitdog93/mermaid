@@ -2,9 +2,9 @@
 
 namespace App\Models\Mysql;
 
-use Illuminate\Database\Eloquent\Model;
+use \PHPZen\LaravelRbac\Model\Role as Roles;
 
-class Role extends Model
+class Role extends Roles
 {
     protected $table = 'roles';
     protected $primaryKey = 'id';
