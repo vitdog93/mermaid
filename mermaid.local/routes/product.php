@@ -16,6 +16,22 @@ Route::get('', [
     'middleware' => ['auth', 'rbac:can,product.view'],
     'uses' => 'ProductController@index'
 ])->name('product');
+Route::group([
+    'prefix' => '',
+], function (){
+    Route::get('', [
+        'middleware' => ['auth', 'rbac:can,product.view'],
+        'uses' => 'ProductController@index'
+    ])->name('product');
+    Route::post('create', [
+        'middleware' => ['auth', 'rbac:can,product.view'],
+        'uses' => 'ProductController@create'
+    ])->name('product.create');
+    Route::get('detail/{id}', [
+        'middleware' => ['auth', 'rbac:can,product.view'],
+        'uses' => 'ProductController@create'
+    ])->name('product.create');
+});
 
 Route::group([
     'prefix' => 'category',

@@ -1,7 +1,7 @@
 <?php
 $user = auth()->user();
 //dd($user);
-//$avatar = $user->avatar ? $user->avatar : '/assets/img/demo/img/profile-pics/2.jpg';
+$avatar = $user->avatar ? $user->avatar : '/assets/img/demo/img/profile-pics/2.jpg';
 ?>
 <header class="header">
     <div class="navigation-trigger hidden-xl-up" data-ma-action="aside-open" data-ma-target=".sidebar">
@@ -29,7 +29,7 @@ $user = auth()->user();
     <ul class="top-nav">
         <li class="dropdown hidden-xs-down">
             <a href="" data-toggle="dropdown">
-{{--                <img src="{{$avatar}}" alt="{{$user->name}}" style="width: 2rem;height: 2rem;border-radius: 50%;">--}}
+                <img src="{{$avatar}}" alt="{{$user->name}}" style="width: 2rem;height: 2rem;border-radius: 50%;">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href=""><i class="zmdi zmdi-pin-account zmdi-hc-fw"></i> {{ __('Trang cá nhân') }}</a>

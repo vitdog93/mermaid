@@ -1,3 +1,28 @@
+function addItem() {
+    $("#formProduct").attr('action','/product/create');
+    $('#modalForm').modal('show');
+    return false;
+}
+
+function editItem(id) {
+    if (!id || id <= 0) {
+        notify('zmdi zmdi-alert-polygon zmdi-hc-fw', 'danger', 'Xảy ra lỗi', "Sản phẩm không xác định.");
+        return false;
+    }
+    $.ajax({
+        type:'GET',
+        url:'/product/detail' + id,
+        success: function (res){
+            $('#productCode').val('res.item.code');
+            $('#productName').val('res.item.name');
+            $('#productDescription').val('res.item.description');
+            $('#productQuantity').val('res.item.quantity');
+            $("#formProduct").attr('action','/product/update');
+            $('#modalForm').modal('show');
+        }
+    });
+    return false;
+}
 function viewItem(id) {
     if (!id || id <= 0) {
         notify('zmdi zmdi-alert-polygon zmdi-hc-fw', 'danger', 'Xảy ra lỗi', "Sản phẩm không xác định.");
@@ -22,6 +47,12 @@ function viewItem(id) {
 
 $('#modalItem').on('hidden.bs.modal', function () {
     $('#modalItem .modal-content').html('Đang tải.....................');
+});
+$('#modalForm').on('hidden.bs.modal', function () {
+    $('#productCode').val('');
+    $('#productName').val('');
+    $('#productDescription').val('');
+    $('#productQuantity').val('');
 });
 
 function updateState(id, state, version) {

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Validator;
 
 class PermissionController extends Controller
 {
@@ -105,7 +106,6 @@ class PermissionController extends Controller
         }
 
         $requestData['created_by'] = auth()->user()->id;
-
         DB::beginTransaction();
         try {
             $model = Permission::create($requestData);
@@ -126,6 +126,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $model = Permission::find(intval($id));
+        dd($model);
         if (!$model) {
             return response()->json([
                 'message' => 'Tính năng không tồn tại!'

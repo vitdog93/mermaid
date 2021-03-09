@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Validator;
 
 class RoleController extends Controller
 {
@@ -96,7 +97,7 @@ class RoleController extends Controller
         }
 
         $requestData['created_by'] = auth()->user()->id;
-
+        dd($requestData);
         DB::beginTransaction();
         try {
             $model = Role::create($requestData);

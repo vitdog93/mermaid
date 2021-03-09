@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\Mysql\Product;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class ProductController extends Controller
 {
@@ -12,7 +15,77 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        return "index";
+    public function index(Request $request){
+        $model = new Product();
+        $searchData = $request->searchData;
+
+        if (isset($searchData['id']) && $searchData['id']) {
+            $model = $model->where('products.id', intval($searchData['id']));
+        }
+
+//        if (!isset($searchData['state'])) {
+//            $searchData['state'] = "PENDING";
+//        }
+//        $model = $model->where('products.state', $searchData['state']);
+
+        if (isset($searchData['name']) && $searchData['name']) {
+            $model = $model->where(function($q) use ($searchData) {
+                $q->where('product->name', 'ILIKE', '%' . $searchData['name'] . '%');
+            });
+        }
+
+        $limit = config('constants.item_per_page');
+        $itemList = $model->orderBy('products.id', 'DESC')->paginate($limit);
+        return view('modules.product.index', [
+            'searchData' => $searchData,
+            'itemList' => $itemList,
+        ]);
+    }
+
+    public function create(Request $request){
+        $requestData = $request->all();
+        $model = Product::create($requestData);
+        $model->save();
+//        DB::beginTransaction();
+//        try{
+//
+//            DB::commit();
+//        }catch (\Exception $e){
+//            DB::rollBack();
+//            return response()->json([
+//                'message' => 'Lỗi server. Vui lòng thử lại sau'
+//            ],500);
+//        }
+        return redirect()->route('product');
+    }
+    public function detail($id)
+    {
+        $model = Product::find(intval($id));
+        if (!$model) {
+            return response()->json([
+                'item' => ''
+            ], 404);
+        }
+        $data= [
+            'id' => $model->id,
+            'name' => $model->name,
+            'code' => $model->code,
+            'description' => $model->description,
+            'quantity' => $model->quantity,
+        ];
+        return response()->json([
+            'item' => $data
+        ],200);
+    }
+    public function update(Request $request,$id)
+    {
+        $model = Product::find(intval($id));
+        if (!$model) {
+            abort(404);
+        }
+        $requestData = $request->all();
+        $model->update($requestData);
+
+        return redirect()->route('product');
     }
 }
