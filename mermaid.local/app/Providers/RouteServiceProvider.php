@@ -17,7 +17,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    protected $namespace = 'App\Http\Controllers';
+
+    public const HOME = '/dashboard';
 
     /**
      * The controller namespace for the application.
@@ -35,18 +37,19 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
+//        $this->configureRateLimiting();
+//
+//        $this->routes(function () {
+//            Route::prefix('api')
+//                ->middleware('api')
+//                ->namespace($this->namespace)
+//                ->group(base_path('routes/api.php'));
+//
+//            Route::middleware('web')
+//                ->namespace($this->namespace)
+//                ->group(base_path('routes/web.php'));
+//        });
+        parent::boot();
     }
 
     /**
@@ -54,10 +57,88 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    public function map()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
+        $this->mapApiRoutes();
+
+        $this->mapWebRoutes();
+
+        $this->mapProductRoutes();
+
+        $this->mapSettingRoutes();
+
+//        $this->mapOrderRoutes();
+//
+        $this->mapAccountRoutes();
+
+//        $this->mapConnectRoutes();
+
+//        $this->mapNotifyRoutes();
     }
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+    } protected function mapApiRoutes()
+{
+    Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/api.php'));
+}
+
+    protected function mapProductRoutes()
+    {
+        Route::prefix('product')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Product')
+            ->group(base_path('routes/product.php'));
+    }
+
+    protected function mapSettingRoutes()
+    {
+        Route::prefix('setting')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Setting')
+            ->group(base_path('routes/setting.php'));
+    }
+
+    protected function mapOrderRoutes()
+    {
+        Route::prefix('order')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Order')
+            ->group(base_path('routes/order.php'));
+    }
+
+    protected function mapAccountRoutes()
+    {
+        Route::prefix('account')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Account')
+            ->group(base_path('routes/account.php'));
+    }
+
+    protected function mapConnectRoutes()
+    {
+        Route::prefix('connect')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Connect')
+            ->group(base_path('routes/connect.php'));
+    }
+
+    protected function mapNotifyRoutes()
+    {
+        Route::prefix('notify')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Notify')
+            ->group(base_path('routes/notify.php'));
+    }
+//    protected function configureRateLimiting()
+//    {
+//        RateLimiter::for('api', function (Request $request) {
+//            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+//        });
+//    }
 }

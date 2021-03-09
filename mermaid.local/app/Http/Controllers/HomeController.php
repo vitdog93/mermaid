@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,10 +21,8 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
-    public function index(Request $request)
+    public function index()
     {
-            return "hello";
-//        return view('modules.dashboard.index');
+        return view('home');
     }
 }
