@@ -13,11 +13,12 @@ function editItem(id) {
         type:'GET',
         url:'/product/detail/' + id,
         success: function (res){
+            console.log(res.item);
             $('#productCode').val(res.item.code);
             $('#productName').val(res.item.name);
             $('#productDescription').val(res.item.description);
             // $('#productImage').val(res.item.image);
-            $('#productWsPrice').val(res.item.wholesale_price);
+            $('#productWholesalePrice').val(res.item.wholesale_price);
             $('#productPrice').val(res.item.price);
             $('#productQuantity').val(res.item.quantity);
             $("#formProduct").attr('action','/product/update/' + id);
