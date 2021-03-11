@@ -96,8 +96,18 @@ class ProductController extends Controller
         if (!$model) {
             abort(404);
         }
+
         $requestData = $request->all();
+        $originalImage = $request->file('image');
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/thumbnail/';
+        $originalPath = public_path().'/images/';
+        $thumbnailImage->save($originalPath.$originalImage->getClientOriginalName());
+        $thumbnailImage->resize(150,150);
+        $thumbnailImage->save($thumbnailPath.$originalImage->getClientOriginalName());
         $model->update($requestData);
+        $model->image=$originalImage->getClientOriginalName();
+        $model->save();
 
         return redirect()->route('product');
     }

@@ -77,7 +77,11 @@
                                 <td>{{ $p-> name  }}</td>
                                 <td>{{ $p-> code }}</td>
                                 <td>{{ $p-> description }}</td>
-                                <td><img src="/images/{{$p->image}}" width="100px" height="100px" /></td>
+                                @if($p->image)
+                                <td><img src="/thumbnail/{{$p->image}}"  /></td>
+                                @else
+                                    <td></td>
+                                @endif
                                 <td>{{number_format($p-> wholesale_price) }} đ</td>
                                 <td>{{ number_format($p-> price)  }} đ</td>
                                 <td>{{$p-> quantity  }}</td>
