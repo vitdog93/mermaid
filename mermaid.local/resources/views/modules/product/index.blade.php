@@ -60,6 +60,10 @@
                             <th>#{{ __('ID') }}</th>
                             <th>{{ __('Sản phẩm') }}</th>
                             <th>{{ __('Mã sản phẩm ') }}</th>
+                            <th>{{ __(' Miêu tả sản phẩm')}}</th>
+                            <th>{{ __(' Ảnh sản phẩm')}}</th>
+                            <th>{{ __('Giá sỉ ')}}</th>
+                            <th>{{ __('Giá lẻ ')}}</th>
                             <th>{{ __('Số lượng') }}</th>
                             <th class="text-center" style="width: 100px;">{{ __('Tình trạng') }}</th>
                             <th style="width: 100px;"></th>
@@ -71,7 +75,11 @@
                             <tr>
                                 <td>{{ $p->id }}</td>
                                 <td>{{ $p-> name  }}</td>
+                                <td>{{ $p-> code }}</td>
                                 <td>{{ $p-> description }}</td>
+                                <td><img src="/images/{{$p->image}}" width="100px" height="100px" /></td>
+                                <td>{{number_format($p-> wholesale_price) }} đ</td>
+                                <td>{{ number_format($p-> price)  }} đ</td>
                                 <td>{{$p-> quantity  }}</td>
                                 <td>
                                     @if($p->quantity == 0)
@@ -137,12 +145,31 @@
                                    required>
                             <i class="form-group__bar"></i>
                         </div>
+                        <div class="form-group" style="width: 100px">
+                            <label for="quantity">{{ __('Giá sỉ') }}</label>
+                            <input type="number" class="form-control" placeholder="0" id="productWholesalePrice" name="wholesale_price"
+                                   required>
+                            <i class="form-group__bar"></i>
+                        </div>
+                        <div class="form-group" style="width: 100px">
+                            <label for="quantity">{{ __('Giá lẻ') }}</label>
+                            <input type="number" class="form-control" placeholder="0" id="productPrice" name="price"
+                                   required>
+                            <i class="form-group__bar"></i>
+                        </div>
                         <div class="form-group" style="width: 50px">
                             <label for="quantity">{{ __('Số lượng') }}</label>
                             <input type="number" class="form-control" placeholder="0" id="productQuantity" name="quantity"
                                    required>
                             <i class="form-group__bar"></i>
                         </div>
+                        <div class="form-group">
+                            <label>{{ __('Hình ảnh sản phẩm') }}</label>
+                            <input type="file" class="form-control"
+                                      id="productImage" name="image">
+                            <i class="form-group__bar"></i>
+                        </div>
+
 
                         <div class="form-group">
                             <label>{{ __('Miêu tả sản phẩm') }}</label>

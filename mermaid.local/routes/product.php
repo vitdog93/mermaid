@@ -29,8 +29,12 @@ Route::group([
     ])->name('product.create');
     Route::get('detail/{id}', [
         'middleware' => ['auth', 'rbac:can,product.view'],
-        'uses' => 'ProductController@create'
-    ])->name('product.create');
+        'uses' => 'ProductController@detail'
+    ])->name('product.detail');
+    Route::post('update/{id}', [
+        'middleware' => ['auth', 'rbac:can,product.view'],
+        'uses' => 'ProductController@update'
+    ])->name('product.update');
 });
 
 Route::group([

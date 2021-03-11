@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Mysql\Product;
 use Illuminate\Http\Request;
 use Mockery\Exception;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -44,7 +45,16 @@ class ProductController extends Controller
 
     public function create(Request $request){
         $requestData = $request->all();
+        $originalImage = $request->file('image');
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/thumbnail/';
+        $originalPath = public_path().'/images/';
+        $thumbnailImage->save($originalPath.$originalImage->getClientOriginalName());
+        $thumbnailImage->resize(150,150);
+        $thumbnailImage->save($thumbnailPath.$originalImage->getClientOriginalName());
+
         $model = Product::create($requestData);
+        $model->image=$originalImage->getClientOriginalName();
         $model->save();
 //        DB::beginTransaction();
 //        try{
@@ -72,6 +82,9 @@ class ProductController extends Controller
             'code' => $model->code,
             'description' => $model->description,
             'quantity' => $model->quantity,
+            'wholesale_price' => $model->wholesale_price,
+            'price' => $model->price,
+            'image' => $model->image,
         ];
         return response()->json([
             'item' => $data

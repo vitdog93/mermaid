@@ -11,13 +11,16 @@ function editItem(id) {
     }
     $.ajax({
         type:'GET',
-        url:'/product/detail' + id,
+        url:'/product/detail/' + id,
         success: function (res){
-            $('#productCode').val('res.item.code');
-            $('#productName').val('res.item.name');
-            $('#productDescription').val('res.item.description');
-            $('#productQuantity').val('res.item.quantity');
-            $("#formProduct").attr('action','/product/update');
+            $('#productCode').val(res.item.code);
+            $('#productName').val(res.item.name);
+            $('#productDescription').val(res.item.description);
+            // $('#productImage').val(res.item.image);
+            $('#productWsPrice').val(res.item.wholesale_price);
+            $('#productPrice').val(res.item.price);
+            $('#productQuantity').val(res.item.quantity);
+            $("#formProduct").attr('action','/product/update/' + id);
             $('#modalForm').modal('show');
         }
     });
