@@ -57,6 +57,8 @@ $('#modalForm').on('hidden.bs.modal', function () {
     $('#productName').val('');
     $('#productDescription').val('');
     $('#productQuantity').val('');
+    $('#productWholesalePrice').val('');
+    $('#productPrice').val('');
 });
 
 function updateState(id, state, version) {

@@ -78,7 +78,10 @@
                                 <td>{{ $p-> code }}</td>
                                 <td>{{ $p-> description }}</td>
                                 @if($p->image)
-                                <td><img src="/thumbnail/{{$p->image}}"  /></td>
+                                    <?php
+                                    $imgs = json_decode($p->image)
+                                    ?>
+                                <td><img src="/thumbnail/{{$imgs[0]}}"  /></td>
                                 @else
                                     <td></td>
                                 @endif
@@ -170,7 +173,7 @@
                         <div class="form-group">
                             <label>{{ __('Hình ảnh sản phẩm') }}</label>
                             <input type="file" class="form-control"
-                                      id="productImage" name="image">
+                                      id="productImage" name="image[]" multiple>
                             <i class="form-group__bar"></i>
                         </div>
 

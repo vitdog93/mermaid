@@ -45,16 +45,19 @@ class ProductController extends Controller
 
     public function create(Request $request){
         $requestData = $request->all();
-        $originalImage = $request->file('image');
+        foreach ($request->file('image') as $img)
+        {
+        $originalImage = $img;
         $thumbnailImage = Image::make($originalImage);
         $thumbnailPath = public_path().'/thumbnail/';
         $originalPath = public_path().'/images/';
         $thumbnailImage->save($originalPath.$originalImage->getClientOriginalName());
         $thumbnailImage->resize(150,150);
         $thumbnailImage->save($thumbnailPath.$originalImage->getClientOriginalName());
-
+        $data[] = $originalImage->getClientOriginalName();
+        }
+        $requestData['image']= json_encode($data);
         $model = Product::create($requestData);
-        $model->image=$originalImage->getClientOriginalName();
         $model->save();
 //        DB::beginTransaction();
 //        try{
