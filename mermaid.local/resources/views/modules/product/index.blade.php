@@ -58,10 +58,10 @@
                         <thead class="thead-light">
                         <tr>
                             <th>#{{ __('ID') }}</th>
+                            <th>{{ __(' Ảnh sản phẩm')}}</th>
                             <th>{{ __('Sản phẩm') }}</th>
                             <th>{{ __('Mã sản phẩm ') }}</th>
                             <th>{{ __(' Miêu tả sản phẩm')}}</th>
-                            <th>{{ __(' Ảnh sản phẩm')}}</th>
                             <th>{{ __('Giá sỉ ')}}</th>
                             <th>{{ __('Giá lẻ ')}}</th>
                             <th>{{ __('Số lượng') }}</th>
@@ -74,17 +74,36 @@
 <!--                            --><?php //$item = json_decode($p->data) ?>
                             <tr>
                                 <td>{{ $p->id }}</td>
+                                @if($p->image)
+                                    <?php $images = json_decode($p->image)?>
+                                    <?php foreach ( $images as $key => $value): ?>
+                                    <input type="hidden" data-src="/thumbnail/{{$value}}"  data-id="{{$key}}">
+                                    <?php endforeach; ?>
+                                    <td>
+                                        <div class="fotorama" data-width="150"  data-arrows="true"
+{{--                                             data-nav="thumbs"--}}
+                                        >
+                                            @foreach($images as $key => $value)
+                                                <img src="/thumbnail/{{ $value }}" data-id="{{$key}}">
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <img src="{{ asset('assets/img/demo/img/group_empty.jpg') }}" alt="">
+                                    </td>
+                                @endif
                                 <td>{{ $p-> name  }}</td>
                                 <td>{{ $p-> code }}</td>
                                 <td>{{ $p-> description }}</td>
-                                @if($p->image)
-                                    <?php
-                                    $imgs = json_decode($p->image)
-                                    ?>
-                                <td><img src="/thumbnail/{{$imgs[0]}}"  /></td>
-                                @else
-                                    <td></td>
-                                @endif
+
+{{--                                    <?php--}}
+{{--                                    $imgs = json_decode($p->image)--}}
+{{--                                    ?>--}}
+{{--                                <td><img src="/thumbnail/{{$imgs[0]}}"  /></td>--}}
+{{--                                @else--}}
+{{--                                    <td></td>--}}
+{{--                                @endif--}}
                                 <td>{{number_format($p-> wholesale_price) }} đ</td>
                                 <td>{{ number_format($p-> price)  }} đ</td>
                                 <td>{{$p-> quantity  }}</td>
@@ -199,6 +218,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/bower_components/fotorama-4.6.4/fotorama.js') }}"></script>
     <script src="{{ asset('assets/js/product/category.js') }}"></script>
     <script src="{{ asset('assets/js/product/product.js') }}"></script>
 @endsection

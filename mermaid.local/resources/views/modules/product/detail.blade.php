@@ -1,15 +1,15 @@
 
 <div class="modal-header border-bottom">
-    <h5 class="">{{ $product->name }}</h5>
+    <h5 class="">{{ $p->name }}</h5>
     <div class="">
-        <?php if ($model->state == 'PENDING'): ?>
-        <button type="button" id="btn__approve" class="btn btn-sm btn-success pr-3" onclick="updateState({{ $model->id }}, 'PUBLIC', {{ $model->version }})">
-            <i class="zmdi zmdi-check zmdi-hc-fw"></i> Duyệt
-        </button>
-        <button type="button" id="btn__reject" class="btn btn-sm btn-danger pr-3" onclick="updateState({{ $product->id }}, 'REJECT', {{ $model->version }})">
-            <i class="zmdi zmdi-minus-circle-outline zmdi-hc-fw"></i> Từ chối
-        </button>
-        <?php endif; ?>
+{{--        <?php if ($model->state == 'PENDING'): ?>--}}
+{{--        <button type="button" id="btn__approve" class="btn btn-sm btn-success pr-3" onclick="updateState({{ $model->id }}, 'PUBLIC', {{ $model->version }})">--}}
+{{--            <i class="zmdi zmdi-check zmdi-hc-fw"></i> Duyệt--}}
+{{--        </button>--}}
+{{--        <button type="button" id="btn__reject" class="btn btn-sm btn-danger pr-3" onclick="updateState({{ $product->id }}, 'REJECT', {{ $model->version }})">--}}
+{{--            <i class="zmdi zmdi-minus-circle-outline zmdi-hc-fw"></i> Từ chối--}}
+{{--        </button>--}}
+{{--        <?php endif; ?>--}}
         <button type="button" class="btn btn-sm btn-secondary pr-3" data-dismiss="modal" aria-label="Đóng">
             <i class="zmdi zmdi-close zmdi-hc-fw"></i> Đóng
         </button>
